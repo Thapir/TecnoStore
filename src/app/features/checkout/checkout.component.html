@@ -1,0 +1,202 @@
+<div class="max-w-screen-xl mx-auto py-5 px-4">
+  <p-breadcrumb [model]="[{label: 'Carrito', routerLink: '/cart'}, {label: 'Checkout'}]"
+                [home]="{icon: 'pi pi-home', routerLink: '/'}"></p-breadcrumb>
+
+  <!-- Order Success -->
+  <div *ngIf="orderPlaced" class="text-center py-8 surface-card border-round shadow-1 mt-4">
+    <i class="pi pi-check-circle text-6xl text-green-500 mb-4"></i>
+    <h1 class="text-3xl font-bold mb-3">Pedido Realizado con Éxito!</h1>
+    <p class="text-gray-500 text-lg mb-2">Gracias por tu compra.</p>
+    <p class="text-gray-400 mb-5">Recibirás un email de confirmación en breve. (Placeholder de plantilla)</p>
+    <p-button label="Seguir Comprando" icon="pi pi-shopping-bag" (onClick)="goHome()"></p-button>
+  </div>
+
+  <!-- Checkout Flow -->
+  <div *ngIf="!orderPlaced" class="mt-4">
+    <p-steps [model]="steps" [activeIndex]="activeStep" [readonly]="true"></p-steps>
+
+    <div class="grid mt-4">
+      <div class="col-12 lg:col-8">
+        <!-- Step 1: Shipping -->
+        <div *ngIf="activeStep === 0" class="surface-card border-round shadow-1 p-5">
+          <h2 class="text-2xl font-bold mb-4"><i class="pi pi-truck mr-2"></i>Información de Envío</h2>
+
+          <form [formGroup]="shippingForm">
+            <div class="grid">
+              <div class="col-12 md:col-6 mb-3">
+                <label class="block font-semibold mb-2">Nombre *</label>
+                <input type="text" pInputText formControlName="firstName" class="w-full"
+                       [class.ng-invalid]="isFieldInvalid('firstName')" [class.ng-dirty]="isFieldInvalid('firstName')">
+              </div>
+              <div class="col-12 md:col-6 mb-3">
+                <label class="block font-semibold mb-2">Apellido *</label>
+                <input type="text" pInputText formControlName="lastName" class="w-full"
+                       [class.ng-invalid]="isFieldInvalid('lastName')" [class.ng-dirty]="isFieldInvalid('lastName')">
+              </div>
+              <div class="col-12 md:col-6 mb-3">
+                <label class="block font-semibold mb-2">Email *</label>
+                <input type="email" pInputText formControlName="email" class="w-full"
+                       [class.ng-invalid]="isFieldInvalid('email')" [class.ng-dirty]="isFieldInvalid('email')">
+              </div>
+              <div class="col-12 md:col-6 mb-3">
+                <label class="block font-semibold mb-2">Teléfono</label>
+                <input type="tel" pInputText formControlName="phone" class="w-full">
+              </div>
+              <div class="col-12 mb-3">
+                <label class="block font-semibold mb-2">Dirección *</label>
+                <input type="text" pInputText formControlName="street" class="w-full"
+                       [class.ng-invalid]="isFieldInvalid('street')" [class.ng-dirty]="isFieldInvalid('street')">
+              </div>
+              <div class="col-12 md:col-4 mb-3">
+                <label class="block font-semibold mb-2">Ciudad *</label>
+                <input type="text" pInputText formControlName="city" class="w-full"
+                       [class.ng-invalid]="isFieldInvalid('city')" [class.ng-dirty]="isFieldInvalid('city')">
+              </div>
+              <div class="col-12 md:col-4 mb-3">
+                <label class="block font-semibold mb-2">Provincia / Estado *</label>
+                <input type="text" pInputText formControlName="state" class="w-full"
+                       [class.ng-invalid]="isFieldInvalid('state')" [class.ng-dirty]="isFieldInvalid('state')">
+              </div>
+              <div class="col-12 md:col-4 mb-3">
+                <label class="block font-semibold mb-2">Código Postal *</label>
+                <input type="text" pInputText formControlName="zipCode" class="w-full"
+                       [class.ng-invalid]="isFieldInvalid('zipCode')" [class.ng-dirty]="isFieldInvalid('zipCode')">
+              </div>
+              <div class="col-12 mb-3">
+                <label class="block font-semibold mb-2">País *</label>
+                <p-dropdown [options]="countries" formControlName="country" placeholder="Seleccionar país"
+                            styleClass="w-full"></p-dropdown>
+              </div>
+            </div>
+          </form>
+
+          <div class="flex justify-content-end mt-4">
+            <p-button label="Continuar al Pago" icon="pi pi-arrow-right" iconPos="right"
+                      (onClick)="nextStep()"></p-button>
+          </div>
+        </div>
+
+        <!-- Step 2: Payment -->
+        <div *ngIf="activeStep === 1" class="surface-card border-round shadow-1 p-5">
+          <h2 class="text-2xl font-bold mb-4"><i class="pi pi-credit-card mr-2"></i>Método de Pago</h2>
+
+          <div class="flex flex-column gap-3 mb-4">
+            <div class="flex align-items-center p-3 border-round border-1 surface-border cursor-pointer"
+                 [class.border-primary]="paymentMethod === 'credit'"
+                 (click)="paymentMethod = 'credit'">
+              <p-radioButton name="payment" value="credit" [(ngModel)]="paymentMethod"></p-radioButton>
+              <label class="ml-3 cursor-pointer flex align-items-center gap-2">
+                <i class="pi pi-credit-card text-xl"></i>
+                <span class="font-semibold">Tarjeta de Crédito / Débito</span>
+              </label>
+            </div>
+            <div class="flex align-items-center p-3 border-round border-1 surface-border cursor-pointer"
+                 [class.border-primary]="paymentMethod === 'paypal'"
+                 (click)="paymentMethod = 'paypal'">
+              <p-radioButton name="payment" value="paypal" [(ngModel)]="paymentMethod"></p-radioButton>
+              <label class="ml-3 cursor-pointer flex align-items-center gap-2">
+                <i class="pi pi-wallet text-xl"></i>
+                <span class="font-semibold">PayPal</span>
+              </label>
+            </div>
+            <div class="flex align-items-center p-3 border-round border-1 surface-border cursor-pointer"
+                 [class.border-primary]="paymentMethod === 'transfer'"
+                 (click)="paymentMethod = 'transfer'">
+              <p-radioButton name="payment" value="transfer" [(ngModel)]="paymentMethod"></p-radioButton>
+              <label class="ml-3 cursor-pointer flex align-items-center gap-2">
+                <i class="pi pi-building text-xl"></i>
+                <span class="font-semibold">Transferencia Bancaria</span>
+              </label>
+            </div>
+          </div>
+
+          <div *ngIf="paymentMethod === 'credit'" class="surface-50 border-round p-4">
+            <p class="text-gray-500 text-center">
+              <i class="pi pi-info-circle mr-2"></i>
+              Esto es una plantilla. Aquí va la integración del formulario de pago (ej: Stripe, MercadoPago).
+            </p>
+          </div>
+
+          <div class="flex justify-content-between mt-4">
+            <p-button label="Volver" icon="pi pi-arrow-left" [outlined]="true"
+                      (onClick)="prevStep()"></p-button>
+            <p-button label="Revisar Pedido" icon="pi pi-arrow-right" iconPos="right"
+                      (onClick)="nextStep()"></p-button>
+          </div>
+        </div>
+
+        <!-- Step 3: Review -->
+        <div *ngIf="activeStep === 2" class="surface-card border-round shadow-1 p-5">
+          <h2 class="text-2xl font-bold mb-4"><i class="pi pi-check-square mr-2"></i>Revisá tu Pedido</h2>
+
+          <!-- Shipping Summary -->
+          <div class="mb-4">
+            <h4 class="font-semibold mb-2">Dirección de Envío</h4>
+            <div class="surface-50 border-round p-3">
+              <p class="m-0">{{ shippingForm.value.firstName }} {{ shippingForm.value.lastName }}</p>
+              <p class="m-0 text-gray-600">{{ shippingForm.value.street }}</p>
+              <p class="m-0 text-gray-600">{{ shippingForm.value.city }}, {{ shippingForm.value.state }} {{ shippingForm.value.zipCode }}</p>
+              <p class="m-0 text-gray-600">{{ shippingForm.value.email }}</p>
+            </div>
+          </div>
+
+          <!-- Payment Summary -->
+          <div class="mb-4">
+            <h4 class="font-semibold mb-2">Pago</h4>
+            <div class="surface-50 border-round p-3">
+              <span class="capitalize">{{ paymentMethod === 'credit' ? 'Tarjeta de Crédito / Débito' : paymentMethod === 'paypal' ? 'PayPal' : 'Transferencia Bancaria' }}</span>
+            </div>
+          </div>
+
+          <!-- Items -->
+          <div class="mb-4">
+            <h4 class="font-semibold mb-2">Artículos ({{ cart.totalItems }})</h4>
+            <div *ngFor="let item of cart.items"
+                 class="flex align-items-center gap-3 p-2 border-bottom-1 surface-border">
+              <img [src]="item.product.image" [alt]="item.product.name"
+                   style="width: 50px; height: 50px; object-fit: cover;" class="border-round">
+              <div class="flex-grow-1">
+                <span class="font-semibold">{{ item.product.name }}</span>
+                <span class="text-gray-500 ml-2">x{{ item.quantity }}</span>
+              </div>
+              <span class="font-semibold">{{ item.product.price * item.quantity | currency }}</span>
+            </div>
+          </div>
+
+          <div class="flex justify-content-between mt-4">
+            <p-button label="Volver" icon="pi pi-arrow-left" [outlined]="true"
+                      (onClick)="prevStep()"></p-button>
+            <p-button label="Realizar Pedido" icon="pi pi-check" styleClass="p-button-lg p-button-success"
+                      (onClick)="placeOrder()"></p-button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Order Summary Sidebar -->
+      <div class="col-12 lg:col-4">
+        <div class="surface-card border-round shadow-1 p-4 sticky" style="top: 180px;">
+          <h3 class="text-xl font-bold mb-4">Resumen del Pedido</h3>
+          <div class="flex justify-content-between mb-2">
+            <span class="text-gray-600">Subtotal</span>
+            <span>{{ cart.subtotal | currency }}</span>
+          </div>
+          <div class="flex justify-content-between mb-2">
+            <span class="text-gray-600">IVA</span>
+            <span>{{ cart.tax | currency }}</span>
+          </div>
+          <div class="flex justify-content-between mb-2">
+            <span class="text-gray-600">Envío</span>
+            <span [class.text-green-500]="cart.shipping === 0">
+              {{ cart.shipping === 0 ? 'GRATIS' : (cart.shipping | currency) }}
+            </span>
+          </div>
+          <p-divider></p-divider>
+          <div class="flex justify-content-between">
+            <span class="text-xl font-bold">Total</span>
+            <span class="text-xl font-bold text-primary">{{ cart.total | currency }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

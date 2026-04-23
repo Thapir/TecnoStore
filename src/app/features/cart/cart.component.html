@@ -1,0 +1,110 @@
+<div class="max-w-screen-xl mx-auto py-5 px-4">
+  <p-breadcrumb [model]="[{label: 'Carrito de Compras'}]" [home]="{icon: 'pi pi-home', routerLink: '/'}"></p-breadcrumb>
+
+  <h1 class="text-3xl font-bold mt-4 mb-4">Carrito de Compras</h1>
+
+  <!-- Empty Cart -->
+  <div *ngIf="cart.items.length === 0" class="text-center py-8 surface-card border-round shadow-1">
+    <i class="pi pi-shopping-cart text-6xl text-gray-300 mb-4"></i>
+    <h2 class="text-gray-500 mb-3">Tu carrito está vacío</h2>
+    <p class="text-gray-400 mb-4">Parece que aún no agregaste ningún producto.</p>
+    <p-button label="Empezar a Comprar" icon="pi pi-arrow-left" (onClick)="continueShopping()"></p-button>
+  </div>
+
+  <!-- Cart with items -->
+  <div *ngIf="cart.items.length > 0" class="grid">
+    <!-- Cart Items -->
+    <div class="col-12 lg:col-8">
+      <div class="surface-card border-round shadow-1">
+        <div class="flex justify-content-between align-items-center p-4 border-bottom-1 surface-border">
+          <span class="font-semibold">{{ cart.totalItems }} artículo(s)</span>
+          <p-button label="Vaciar Carrito" [text]="true" severity="danger" icon="pi pi-trash"
+                    size="small" (onClick)="clearCart()"></p-button>
+        </div>
+
+        <div *ngFor="let item of cart.items; let last = last"
+             class="flex align-items-center p-4"
+             [class.border-bottom-1]="!last" [class.surface-border]="!last">
+          <!-- Image -->
+          <img [src]="item.product.image" [alt]="item.product.name"
+               class="border-round mr-4 cursor-pointer"
+               style="width: 80px; height: 80px; object-fit: cover;"
+               [routerLink]="['/products', item.product.id]">
+
+          <!-- Info -->
+          <div class="flex-grow-1">
+            <h4 class="font-semibold mb-1 cursor-pointer hover:text-primary"
+                [routerLink]="['/products', item.product.id]">{{ item.product.name }}</h4>
+            <span class="text-gray-500 text-sm">{{ item.product.category }}</span>
+          </div>
+
+          <!-- Quantity -->
+          <div class="flex align-items-center gap-3 mx-4">
+            <p-inputNumber [(ngModel)]="item.quantity" [min]="1" [max]="item.product.stock"
+                           [showButtons]="true" buttonLayout="horizontal"
+                           incrementButtonIcon="pi pi-plus"
+                           decrementButtonIcon="pi pi-minus"
+                           [inputStyle]="{'width': '40px', 'text-align': 'center'}"
+                           (onInput)="updateQuantity(item.product.id, +($event.value || 1))">
+            </p-inputNumber>
+          </div>
+
+          <!-- Price -->
+          <div class="text-right mx-4">
+            <span class="text-lg font-bold text-primary">{{ item.product.price * item.quantity | currency }}</span>
+            <div *ngIf="item.quantity > 1" class="text-gray-500 text-sm">{{ item.product.price | currency }} c/u</div>
+          </div>
+
+          <!-- Remove -->
+          <p-button icon="pi pi-times" [rounded]="true" [text]="true" severity="danger"
+                    (onClick)="removeItem(item.product.id)"></p-button>
+        </div>
+      </div>
+
+      <p-button label="Seguir Comprando" icon="pi pi-arrow-left" [text]="true"
+                styleClass="mt-3" (onClick)="continueShopping()"></p-button>
+    </div>
+
+    <!-- Order Summary -->
+    <div class="col-12 lg:col-4">
+      <div class="surface-card border-round shadow-1 p-4 sticky" style="top: 180px;">
+        <h3 class="text-xl font-bold mb-4">Resumen del Pedido</h3>
+
+        <div class="flex justify-content-between mb-3">
+          <span class="text-gray-600">Subtotal</span>
+          <span class="font-semibold">{{ cart.subtotal | currency }}</span>
+        </div>
+        <div class="flex justify-content-between mb-3">
+          <span class="text-gray-600">IVA (21%)</span>
+          <span class="font-semibold">{{ cart.tax | currency }}</span>
+        </div>
+        <div class="flex justify-content-between mb-3">
+          <span class="text-gray-600">Envío</span>
+          <span class="font-semibold" [class.text-green-500]="cart.shipping === 0">
+            {{ cart.shipping === 0 ? 'GRATIS' : (cart.shipping | currency) }}
+          </span>
+        </div>
+        <div *ngIf="cart.shipping > 0" class="text-sm text-gray-400 mb-3">
+          <i class="pi pi-info-circle mr-1"></i>
+          Agrega {{ 100 - cart.subtotal | currency }} más para envío gratis
+        </div>
+
+        <p-divider></p-divider>
+
+        <div class="flex justify-content-between mb-4">
+          <span class="text-xl font-bold">Total</span>
+          <span class="text-xl font-bold text-primary">{{ cart.total | currency }}</span>
+        </div>
+
+        <p-button label="Ir al Checkout" icon="pi pi-lock"
+                  styleClass="w-full p-button-lg"
+                  (onClick)="checkout()"></p-button>
+
+        <div class="flex align-items-center justify-content-center gap-2 mt-3 text-gray-500 text-sm">
+          <i class="pi pi-shield"></i>
+          <span>Compra segura garantizada</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

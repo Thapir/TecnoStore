@@ -1,0 +1,167 @@
+<div class="max-w-screen-xl mx-auto py-5 px-4">
+  <p-breadcrumb [model]="breadcrumbItems" [home]="{icon: 'pi pi-home', routerLink: '/'}"></p-breadcrumb>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="grid mt-4">
+    <div class="col-12 md:col-6">
+      <p-skeleton width="100%" height="400px"></p-skeleton>
+    </div>
+    <div class="col-12 md:col-6">
+      <p-skeleton width="60%" height="2rem" styleClass="mb-3"></p-skeleton>
+      <p-skeleton width="30%" height="1.5rem" styleClass="mb-3"></p-skeleton>
+      <p-skeleton width="100%" height="5rem" styleClass="mb-3"></p-skeleton>
+      <p-skeleton width="40%" height="2.5rem"></p-skeleton>
+    </div>
+  </div>
+
+  <!-- Product Detail -->
+  <div *ngIf="!loading && product" class="grid mt-4">
+    <!-- Images -->
+    <div class="col-12 md:col-6">
+      <div class="surface-card border-round shadow-1 p-3">
+        <p-galleria [value]="productImages" [numVisible]="4"
+                    [showThumbnails]="productImages.length > 1"
+                    [showIndicators]="false"
+                    [containerStyle]="{'max-width': '100%'}">
+          <ng-template pTemplate="item" let-item>
+            <img [src]="item.src" [alt]="product!.name"
+                 class="w-full border-round" style="max-height: 450px; object-fit: contain;">
+          </ng-template>
+          <ng-template pTemplate="thumbnail" let-item>
+            <img [src]="item.src" [alt]="product!.name"
+                 style="width: 60px; height: 60px; object-fit: cover;" class="border-round">
+          </ng-template>
+        </p-galleria>
+      </div>
+    </div>
+
+    <!-- Info -->
+    <div class="col-12 md:col-6">
+      <div class="surface-card border-round shadow-1 p-4">
+        <span class="text-gray-500 text-sm">{{ product.category }} | SKU: {{ product.sku }}</span>
+        <h1 class="text-3xl font-bold mt-2 mb-3">{{ product.name }}</h1>
+
+        <div class="flex align-items-center gap-3 mb-3">
+          <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating>
+          <span class="text-gray-500">{{ product.reviewCount }} reseñas</span>
+          <p-tag *ngIf="product.stock > 10" value="En Stock" severity="success"></p-tag>
+          <p-tag *ngIf="product.stock <= 10 && product.stock > 0"
+                 [value]="'Solo quedan ' + product.stock" severity="warning"></p-tag>
+          <p-tag *ngIf="product.stock === 0" value="Sin Stock" severity="danger"></p-tag>
+        </div>
+
+        <div class="flex align-items-center gap-3 mb-4">
+          <span class="text-3xl font-bold text-primary">{{ product.price | currency }}</span>
+          <span *ngIf="product.originalPrice" class="text-xl text-gray-400 line-through">
+            {{ product.originalPrice | currency }}
+          </span>
+          <p-tag *ngIf="discount" [value]="'-' + discount + '%'" severity="danger"></p-tag>
+        </div>
+
+        <p class="line-height-3 text-gray-600 mb-4">{{ product.description }}</p>
+
+        <!-- Tags -->
+        <div *ngIf="product.tags?.length" class="flex flex-wrap gap-2 mb-4">
+          <p-chip *ngFor="let tag of product.tags" [label]="tag"></p-chip>
+        </div>
+
+        <p-divider></p-divider>
+
+        <!-- Quantity & Add to Cart -->
+        <div class="flex align-items-center gap-3 mb-4">
+          <label class="font-semibold">Cantidad:</label>
+          <p-inputNumber [(ngModel)]="quantity" [min]="1" [max]="product.stock"
+                         [showButtons]="true" buttonLayout="horizontal"
+                         incrementButtonIcon="pi pi-plus"
+                         decrementButtonIcon="pi pi-minus"
+                         [inputStyle]="{'width': '50px', 'text-align': 'center'}">
+          </p-inputNumber>
+        </div>
+
+        <div class="flex gap-3">
+          <p-button label="Agregar al Carrito" icon="pi pi-shopping-cart"
+                    styleClass="flex-grow-1 p-button-lg"
+                    [disabled]="product.stock === 0"
+                    (onClick)="addToCart()"></p-button>
+          <p-button icon="pi pi-heart" styleClass="p-button-outlined p-button-lg"></p-button>
+        </div>
+
+        <p-divider></p-divider>
+
+        <!-- Features -->
+        <div class="grid">
+          <div class="col-6 flex align-items-center gap-2">
+            <i class="pi pi-truck text-primary"></i>
+            <span class="text-sm">Envío gratis en compras +$100</span>
+          </div>
+          <div class="col-6 flex align-items-center gap-2">
+            <i class="pi pi-refresh text-primary"></i>
+            <span class="text-sm">Devolución en 30 días</span>
+          </div>
+          <div class="col-6 flex align-items-center gap-2">
+            <i class="pi pi-shield text-primary"></i>
+            <span class="text-sm">1 año de garantía</span>
+          </div>
+          <div class="col-6 flex align-items-center gap-2">
+            <i class="pi pi-lock text-primary"></i>
+            <span class="text-sm">Compra segura</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Tabs -->
+  <div *ngIf="!loading && product" class="mt-5">
+    <p-tabView>
+      <p-tabPanel header="Descripción">
+        <div class="p-4">
+          <h3 class="mb-3">Sobre este producto</h3>
+          <p class="line-height-3 text-gray-600">{{ product.description }}</p>
+          <p class="line-height-3 text-gray-600 mt-3">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt
+            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+            laboris nisi ut aliquip ex ea commodo consequat.
+          </p>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel header="Especificaciones">
+        <div class="p-4">
+          <div class="grid">
+            <div class="col-6 md:col-3 font-semibold">SKU</div>
+            <div class="col-6 md:col-3">{{ product.sku }}</div>
+            <div class="col-6 md:col-3 font-semibold">Categoría</div>
+            <div class="col-6 md:col-3">{{ product.category }}</div>
+            <div class="col-6 md:col-3 font-semibold">Stock</div>
+            <div class="col-6 md:col-3">{{ product.stock }} unidades</div>
+            <div class="col-6 md:col-3 font-semibold">Valoración</div>
+            <div class="col-6 md:col-3">{{ product.rating }}/5</div>
+          </div>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel header="Reseñas ({{ product.reviewCount }})">
+        <div class="p-4 text-center text-gray-500">
+          <i class="pi pi-comments text-4xl mb-3"></i>
+          <p>Las reseñas de clientes estarán disponibles próximamente. Esto es un placeholder de la plantilla.</p>
+        </div>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+
+  <!-- Related Products -->
+  <div *ngIf="relatedProducts.length > 0" class="mt-5">
+    <h2 class="text-2xl font-bold mb-4">Productos Relacionados</h2>
+    <div class="grid">
+      <div *ngFor="let rp of relatedProducts" class="col-12 sm:col-6 md:col-3">
+        <div class="surface-card border-round shadow-1 overflow-hidden cursor-pointer hover:shadow-4 transition-all transition-duration-300"
+             (click)="viewProduct(rp.id)">
+          <img [src]="rp.image" [alt]="rp.name" class="w-full" style="height: 180px; object-fit: cover;">
+          <div class="p-3">
+            <h4 class="font-semibold mb-1">{{ rp.name }}</h4>
+            <span class="text-primary font-bold">{{ rp.price | currency }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

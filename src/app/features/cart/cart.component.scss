@@ -1,0 +1,7 @@
+@media (max-width: 768px) {
+  :host ::ng-deep .p-inputnumber {
+    .p-inputnumber-input {
+      width: 35px !important;
+    }
+  }
+}

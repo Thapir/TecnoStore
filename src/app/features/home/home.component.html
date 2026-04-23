@@ -1,0 +1,141 @@
+<!-- Hero Section -->
+<section class="hero-section">
+  <p-carousel [value]="heroSlides" [numVisible]="1" [numScroll]="1"
+              [circular]="true" [autoplayInterval]="6000" [showNavigators]="true"
+              [showIndicators]="true">
+    <ng-template let-slide pTemplate="item">
+      <div class="hero-slide" [ngClass]="slide.bgClass">
+        <span class="hero-blob hero-blob--one"></span>
+        <span class="hero-blob hero-blob--two"></span>
+        <span class="hero-grid"></span>
+
+        <div class="hero-content">
+          <span class="hero-eyebrow">
+            <i [class]="slide.icon"></i>
+            {{ slide.eyebrow }}
+          </span>
+          <h1 class="hero-title">{{ slide.title }}</h1>
+          <p class="hero-subtitle">{{ slide.subtitle }}</p>
+          <button type="button" class="hero-cta" (click)="shopAll()">
+            <span>{{ slide.cta }}</span>
+            <i class="pi pi-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </ng-template>
+  </p-carousel>
+</section>
+
+<!-- Categories Section -->
+<section class="py-6 px-4">
+  <div class="max-w-screen-xl mx-auto">
+    <div class="text-center mb-5">
+      <h2 class="text-3xl font-bold mb-2">Comprar por Categoría</h2>
+      <p class="text-gray-500">Encuentra lo que estás buscando</p>
+    </div>
+    <div class="grid">
+      <div *ngFor="let cat of categories" class="col-6 md:col-3">
+        <div class="category-card surface-card border-round shadow-1 p-4 text-center cursor-pointer hover:shadow-4 transition-all transition-duration-300"
+             (click)="browseCategory(cat.slug)">
+          <i [class]="cat.icon + ' text-4xl text-primary mb-3'"></i>
+          <h3 class="text-lg font-semibold mb-1">{{ cat.name }}</h3>
+          <span class="text-gray-500 text-sm">{{ cat.productCount }} productos</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Products -->
+<section class="py-6 px-4 surface-50">
+  <div class="max-w-screen-xl mx-auto">
+    <div class="flex justify-content-between align-items-center mb-5">
+      <div>
+        <h2 class="text-3xl font-bold mb-1">Productos Destacados</h2>
+        <p class="text-gray-500">Seleccionados especialmente para ti</p>
+      </div>
+      <p-button label="Ver Todos" [text]="true" icon="pi pi-arrow-right"
+                iconPos="right" (onClick)="shopAll()"></p-button>
+    </div>
+
+    <!-- Loading skeleton -->
+    <div *ngIf="loading" class="grid">
+      <div *ngFor="let i of [1,2,3,4]" class="col-12 md:col-3">
+        <div class="surface-card border-round shadow-1 p-3">
+          <p-skeleton width="100%" height="200px"></p-skeleton>
+          <p-skeleton width="80%" height="1.5rem" styleClass="mt-3"></p-skeleton>
+          <p-skeleton width="50%" height="1rem" styleClass="mt-2"></p-skeleton>
+          <p-skeleton width="30%" height="1.5rem" styleClass="mt-2"></p-skeleton>
+        </div>
+      </div>
+    </div>
+
+    <!-- Products grid -->
+    <div *ngIf="!loading" class="grid">
+      <div *ngFor="let product of featuredProducts" class="col-12 sm:col-6 md:col-3">
+        <div class="product-card surface-card border-round shadow-1 overflow-hidden hover:shadow-4 transition-all transition-duration-300">
+          <div class="product-image relative cursor-pointer" (click)="viewProduct(product.id)">
+            <img [src]="product.image" [alt]="product.name" class="w-full" style="height: 220px; object-fit: cover;">
+            <p-tag *ngIf="product.originalPrice" value="OFERTA" severity="danger"
+                   class="absolute" [style]="{top: '10px', left: '10px'}"></p-tag>
+          </div>
+          <div class="p-3">
+            <h3 class="text-lg font-semibold mb-1 cursor-pointer hover:text-primary"
+                (click)="viewProduct(product.id)">{{ product.name }}</h3>
+            <div class="flex align-items-center gap-2 mb-2">
+              <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"
+                        [stars]="5"></p-rating>
+              <span class="text-gray-500 text-sm">({{ product.reviewCount }})</span>
+            </div>
+            <div class="flex align-items-center justify-content-between">
+              <div>
+                <span class="text-xl font-bold text-primary">{{ product.price | currency }}</span>
+                <span *ngIf="product.originalPrice" class="text-sm text-gray-400 line-through ml-2">
+                  {{ product.originalPrice | currency }}
+                </span>
+              </div>
+            </div>
+            <p-button label="Agregar al Carrito" icon="pi pi-shopping-cart"
+                      styleClass="w-full mt-3 p-button-outlined"
+                      (onClick)="addToCart(product)"></p-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Promo Banner -->
+<section class="py-6 px-4">
+  <div class="max-w-screen-xl mx-auto">
+    <div class="grid">
+      <div class="col-12 md:col-4">
+        <div class="flex align-items-center gap-3 p-4 surface-card border-round shadow-1">
+          <i class="pi pi-truck text-3xl text-primary"></i>
+          <div>
+            <h4 class="font-semibold mb-1">Envío Gratis</h4>
+            <p class="text-gray-500 text-sm m-0">En compras mayores a $100</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 md:col-4">
+        <div class="flex align-items-center gap-3 p-4 surface-card border-round shadow-1">
+          <i class="pi pi-refresh text-3xl text-primary"></i>
+          <div>
+            <h4 class="font-semibold mb-1">Devoluciones Fáciles</h4>
+            <p class="text-gray-500 text-sm m-0">Política de devolución de 30 días</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 md:col-4">
+        <div class="flex align-items-center gap-3 p-4 surface-card border-round shadow-1">
+          <i class="pi pi-lock text-3xl text-primary"></i>
+          <div>
+            <h4 class="font-semibold mb-1">Pago Seguro</h4>
+            <p class="text-gray-500 text-sm m-0">Compra 100% segura</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
