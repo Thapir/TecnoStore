@@ -1,5 +1,9 @@
-/* Global Styles - TecnoShop (yellow + ink palette, light/dark themes)
-   Type system: Space Grotesk (display) + Inter (body) + JetBrains Mono (detail) */
+/* Global Styles - TecnoShop
+   Brand kit (mandatory): Yellow #F4D03F + Ink #0A0A0A + Paper #F5F2EA
+   Type system: Space Grotesk (display) + Inter (body) + JetBrains Mono (detail)
+   Design language: Apple-inspired (photography-first, alternating tiles, single accent,
+   pill CTAs, negative letter-spacing on display sizes, 17px body, weight ladder
+   300/400/600/700 — no 500 in body copy). */
 
 :root {
   /* ---------------- Brand palette ---------------- */
@@ -10,7 +14,7 @@
   --tn-yellow-400: #F4D03F;  /* base · brand kit "Yellow" */
   --tn-yellow-500: #E5BB1F;
   --tn-yellow-600: #C9A11A;
-  --tn-yellow-700: #876200;  /* brand kit accent text on light */
+  --tn-yellow-700: #876200;
 
   --tn-ink-900: #050505;
   --tn-ink-800: #0A0A0A;     /* base · brand kit "Ink" */
@@ -22,26 +26,44 @@
   --tn-paper:    #F5F2EA;    /* brand kit "Paper" */
   --tn-paper-2:  #EDE8DC;
 
-  --tn-gradient-yellow: linear-gradient(135deg, #F6DA56 0%, #F4D03F 50%, #C9A11A 100%);
-  --tn-gradient-ink: linear-gradient(135deg, #0A0A0A 0%, #1F1F24 60%, #2A2A30 100%);
-
   /* ---------------- Type system ---------------- */
   --font-display: 'Space Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-body:    'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono:    'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
 
-  --fs-display-xl: clamp(48px, 8vw, 88px);
-  --fs-display-l:  clamp(36px, 5vw, 56px);
-  --fs-display-m:  clamp(24px, 3vw, 40px);
-  --fs-display-s:  22px;
-  --fs-body-l:     19px;
-  --fs-body-m:     16px;
+  /* Apple-style scale (display in Space Grotesk, body in Inter at 17px base) */
+  --fs-hero:       clamp(40px, 6vw, 56px);    /* hero headline */
+  --fs-display-l:  clamp(32px, 4vw, 40px);    /* tile/section headline */
+  --fs-display-m:  clamp(24px, 3vw, 34px);    /* H2 section */
+  --fs-display-s:  21px;                       /* tagline */
+  --fs-lead:       clamp(20px, 2vw, 24px);    /* large lead, weight 300 */
+  --fs-subhead:    clamp(20px, 2vw, 28px);    /* tile subcopy */
+  --fs-body:       17px;                       /* Apple's body is 17, not 16 */
   --fs-body-s:     14px;
+  --fs-fine:       12px;
+  --fs-micro:      10px;
   --fs-mono-m:     13px;
   --fs-mono-s:     11px;
 
   /* PrimeNG honors --font-family — point it at our body font */
   --font-family: var(--font-body);
+
+  /* ---------------- Shape tokens ---------------- */
+  --tn-radius-button: 980px;   /* full pill — primary CTAs, search */
+  --tn-radius-utility: 8px;    /* compact utility actions */
+  --tn-radius-pearl:   11px;   /* white pearl capsule */
+  --tn-radius-card:    18px;   /* product cards, accessories grid */
+  --tn-radius-image:   8px;    /* inner card imagery */
+
+  /* ---------------- Spacing rhythm ---------------- */
+  --tn-section-pad-y: clamp(48px, 8vw, 80px);
+  --tn-tile-pad-y:    clamp(64px, 10vw, 96px);
+  --tn-card-pad:      clamp(20px, 2vw, 28px);
+
+  /* ---------------- Single product shadow (reserved for product imagery) ---------------- */
+  --tn-shadow-product: rgba(0, 0, 0, 0.22) 3px 5px 30px 0;
+  --tn-shadow-yellow:  0 12px 28px -14px rgba(244, 208, 63, 0.55);
+  --tn-shadow-card:    none;  /* Apple philosophy: cards have no shadow, only hairline */
 
   /* ---------------- Light theme (default) ---------------- */
   --primary-color: var(--tn-yellow-400);
@@ -50,31 +72,32 @@
   --tn-accent-strong: var(--tn-yellow-700);
   --tn-accent-soft: rgba(244, 208, 63, 0.16);
 
-  --surface-ground: var(--tn-paper);
+  --surface-ground: #FFFFFF;
   --surface-section: #FFFFFF;
   --surface-card: #FFFFFF;
   --surface-overlay: #FFFFFF;
+  --surface-parchment: var(--tn-paper);
+  --surface-tile-dark: var(--tn-ink-700);
+
+  --tn-hairline: rgba(10, 10, 10, 0.08);  /* 1px hairline border, Apple-style */
   --surface-border: rgba(10, 10, 10, 0.10);
   --surface-hover: rgba(10, 10, 10, 0.04);
 
   --text-color: var(--tn-ink-800);
-  --text-color-secondary: rgba(10, 10, 10, 0.70);
-  --text-color-muted: rgba(10, 10, 10, 0.50);
+  --text-color-secondary: rgba(10, 10, 10, 0.80);  /* "Muted Ink 80%" */
+  --text-color-muted: rgba(10, 10, 10, 0.48);      /* "Muted Ink 48%" */
 
-  --tn-header-bg: rgba(245, 242, 234, 0.82);
-  --tn-header-bg-scrolled: rgba(245, 242, 234, 0.94);
-  --tn-header-border: rgba(10, 10, 10, 0.10);
+  --tn-header-bg: rgba(255, 255, 255, 0.80);       /* frosted */
+  --tn-header-bg-scrolled: rgba(255, 255, 255, 0.92);
+  --tn-header-border: var(--tn-hairline);
 
-  --tn-search-bg: var(--tn-paper-2);
+  --tn-search-bg: var(--tn-paper);
   --tn-search-bg-focus: #FFFFFF;
 
-  --tn-footer-bg: var(--tn-ink-800);
-  --tn-footer-text: rgba(245, 242, 234, 0.78);
-  --tn-footer-text-muted: rgba(245, 242, 234, 0.55);
-  --tn-footer-border: rgba(245, 242, 234, 0.10);
-
-  --tn-shadow-card: 0 14px 32px -20px rgba(10, 10, 10, 0.25);
-  --tn-shadow-yellow: 0 14px 30px -14px rgba(244, 208, 63, 0.6);
+  --tn-footer-bg: var(--tn-paper);  /* Apple-style parchment footer */
+  --tn-footer-text: rgba(10, 10, 10, 0.80);
+  --tn-footer-text-muted: rgba(10, 10, 10, 0.48);
+  --tn-footer-border: rgba(10, 10, 10, 0.08);
 
   color-scheme: light;
 }
@@ -88,26 +111,28 @@
   --surface-section: var(--tn-ink-800);
   --surface-card: var(--tn-ink-700);
   --surface-overlay: var(--tn-ink-600);
+  --surface-parchment: var(--tn-ink-800);
+  --surface-tile-dark: var(--tn-ink-800);
+
+  --tn-hairline: rgba(245, 242, 234, 0.10);
   --surface-border: rgba(245, 242, 234, 0.10);
   --surface-hover: rgba(245, 242, 234, 0.05);
 
   --text-color: var(--tn-paper);
-  --text-color-secondary: rgba(245, 242, 234, 0.75);
-  --text-color-muted: rgba(245, 242, 234, 0.50);
+  --text-color-secondary: rgba(245, 242, 234, 0.80);
+  --text-color-muted: rgba(245, 242, 234, 0.48);
 
-  --tn-header-bg: rgba(10, 10, 10, 0.78);
-  --tn-header-bg-scrolled: rgba(10, 10, 10, 0.94);
-  --tn-header-border: rgba(245, 242, 234, 0.10);
+  --tn-header-bg: rgba(10, 10, 10, 0.80);
+  --tn-header-bg-scrolled: rgba(10, 10, 10, 0.92);
+  --tn-header-border: var(--tn-hairline);
 
   --tn-search-bg: var(--tn-ink-600);
   --tn-search-bg-focus: var(--tn-ink-500);
 
-  --tn-footer-bg: #050505;
-  --tn-footer-text: rgba(245, 242, 234, 0.75);
-  --tn-footer-text-muted: rgba(245, 242, 234, 0.45);
-  --tn-footer-border: rgba(245, 242, 234, 0.06);
-
-  --tn-shadow-card: 0 18px 40px -22px rgba(0, 0, 0, 0.7);
+  --tn-footer-bg: var(--tn-ink-900);
+  --tn-footer-text: rgba(245, 242, 234, 0.80);
+  --tn-footer-text-muted: rgba(245, 242, 234, 0.48);
+  --tn-footer-border: rgba(245, 242, 234, 0.08);
 
   color-scheme: dark;
 }
@@ -120,23 +145,29 @@ body {
   margin: 0;
   padding: 0;
   font-family: var(--font-body);
-  font-size: var(--fs-body-m);
-  line-height: 1.6;
+  font-size: var(--fs-body);
+  line-height: 1.47;            /* Apple body leading */
+  font-weight: 400;
   background-color: var(--surface-ground);
   color: var(--text-color);
+  letter-spacing: -0.022em;     /* slight tighten on body, "Apple tight" */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.35s ease, color 0.35s ease;
   font-feature-settings: 'cv11', 'ss01';
 }
 
-h1, h2, h3, h4, h5, h6,
-.tn-display {
+h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
+  font-weight: 600;             /* Apple uses 600, not 700, for headlines */
   letter-spacing: -0.025em;
-  font-weight: 500;
-  line-height: 1.1;
+  line-height: 1.10;
+  margin: 0 0 0.5em;
 }
+
+h1 { font-size: var(--fs-display-l); letter-spacing: -0.028em; }
+h2 { font-size: var(--fs-display-m); line-height: 1.18; }
+h3 { font-size: var(--fs-display-s); font-weight: 600; line-height: 1.20; }
 
 code, kbd, pre, samp,
 .tn-mono {
@@ -160,14 +191,17 @@ a:hover { color: var(--tn-yellow-600); }
   margin-right: auto;
 }
 
-/* Typography utility classes (mirror brand kit scale) */
-.tn-display-xl { font-family: var(--font-display); font-weight: 300; font-size: var(--fs-display-xl); letter-spacing: -0.045em; line-height: 0.95; }
-.tn-display-l  { font-family: var(--font-display); font-weight: 500; font-size: var(--fs-display-l);  letter-spacing: -0.025em; line-height: 1.0;  }
-.tn-display-m  { font-family: var(--font-display); font-weight: 500; font-size: var(--fs-display-m);  letter-spacing: -0.015em; line-height: 1.1;  }
-.tn-display-s  { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-display-s);  letter-spacing: -0.005em; line-height: 1.25; }
-.tn-body-l     { font-family: var(--font-body);    font-weight: 400; font-size: var(--fs-body-l);     line-height: 1.6; }
-.tn-body-m     { font-family: var(--font-body);    font-weight: 400; font-size: var(--fs-body-m);     line-height: 1.65; }
-.tn-body-s     { font-family: var(--font-body);    font-weight: 400; font-size: var(--fs-body-s);     line-height: 1.55; }
+/* ---------------- Apple-style typography utility classes ---------------- */
+.tn-hero       { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-hero);       letter-spacing: -0.028em; line-height: 1.07; }
+.tn-display-l  { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-display-l);  letter-spacing: -0.025em; line-height: 1.10; }
+.tn-display-m  { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-display-m);  letter-spacing: -0.018em; line-height: 1.18; }
+.tn-display-s  { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-display-s);  letter-spacing: -0.005em; line-height: 1.20; }
+.tn-lead       { font-family: var(--font-body);    font-weight: 300; font-size: var(--fs-lead);       letter-spacing: -0.012em; line-height: 1.50; }
+.tn-subhead    { font-family: var(--font-display); font-weight: 400; font-size: var(--fs-subhead);    letter-spacing: -0.012em; line-height: 1.18; }
+.tn-body       { font-family: var(--font-body);    font-weight: 400; font-size: var(--fs-body);       letter-spacing: -0.022em; line-height: 1.47; }
+.tn-body-strong{ font-family: var(--font-body);    font-weight: 600; font-size: var(--fs-body);       letter-spacing: -0.022em; line-height: 1.24; }
+.tn-caption    { font-family: var(--font-body);    font-weight: 400; font-size: var(--fs-body-s);     letter-spacing: -0.014em; line-height: 1.43; }
+.tn-fine       { font-family: var(--font-body);    font-weight: 400; font-size: var(--fs-fine);       letter-spacing: -0.007em; line-height: 1.30; }
 .tn-mono-m     { font-family: var(--font-mono);    font-weight: 400; font-size: var(--fs-mono-m);     letter-spacing: 0.04em; }
 .tn-mono-s     { font-family: var(--font-mono);    font-weight: 400; font-size: var(--fs-mono-s);     letter-spacing: 0.14em; text-transform: uppercase; }
 
@@ -188,9 +222,7 @@ router-outlet + * {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* ---------------- PrimeNG dark-mode overrides ----------------
-   PrimeNG ships with the lara-light-blue theme baked into the bundle.
-   We override the most visible surfaces so dark mode feels coherent. */
+/* ---------------- PrimeNG dark-mode overrides ---------------- */
 [data-theme='dark'] {
   .p-component,
   .p-inputtext,
@@ -217,26 +249,26 @@ router-outlet + * {
 
   .p-inputtext::placeholder { color: var(--text-color-muted); }
 
-  .p-button.p-button-text,
-  .p-button.p-button-outlined {
-    color: var(--primary-color);
-    border-color: var(--primary-color);
-  }
-
   .p-card .p-card-title,
   .p-card .p-card-subtitle { color: var(--text-color); }
 
   .p-divider { border-color: var(--surface-border); }
 }
 
-/* Primary button always uses TecnoShop yellow (solid) */
+/* ---------------- Buttons (Apple pill grammar, TecnoShop yellow) ---------------- */
+/* Primary: solid yellow pill */
 .p-button:not(.p-button-text):not(.p-button-outlined):not(.p-button-link) {
   background: #F4D03F;
-  border-color: #F4D03F;
+  border: 1px solid #F4D03F;
   color: var(--tn-ink-800);
-  font-family: var(--font-display);
-  font-weight: 500;
-  letter-spacing: -0.005em;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--fs-body);
+  letter-spacing: -0.022em;
+  border-radius: var(--tn-radius-button);
+  padding: 11px 22px;
+  line-height: 1.0;
+  transition: background 0.2s ease, transform 0.12s ease, box-shadow 0.2s ease;
 }
 
 .p-button:not(.p-button-text):not(.p-button-outlined):not(.p-button-link):hover {
@@ -244,3 +276,104 @@ router-outlet + * {
   border-color: var(--tn-yellow-500);
   box-shadow: var(--tn-shadow-yellow);
 }
+
+.p-button:not(.p-button-text):not(.p-button-outlined):not(.p-button-link):active {
+  transform: scale(0.95);
+}
+
+.p-button:not(.p-button-text):not(.p-button-outlined):not(.p-button-link):focus-visible {
+  outline: 2px solid var(--tn-yellow-500);
+  outline-offset: 2px;
+}
+
+/* Outlined: 1px hairline pill, brand-colored on hover */
+.p-button.p-button-outlined {
+  background: transparent;
+  border: 1px solid var(--tn-yellow-700);
+  color: var(--tn-yellow-700);
+  border-radius: var(--tn-radius-button);
+  padding: 11px 22px;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--fs-body);
+  letter-spacing: -0.022em;
+  line-height: 1.0;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.12s ease;
+}
+
+.p-button.p-button-outlined:hover {
+  background: var(--tn-accent-soft);
+  color: var(--tn-yellow-700);
+}
+
+.p-button.p-button-outlined:active { transform: scale(0.95); }
+
+[data-theme='dark'] .p-button.p-button-outlined {
+  border-color: var(--tn-yellow-300);
+  color: var(--tn-yellow-300);
+}
+[data-theme='dark'] .p-button.p-button-outlined:hover {
+  background: var(--tn-accent-soft);
+  color: var(--tn-yellow-200);
+}
+
+/* Text/link buttons: same accent, no shape */
+.p-button.p-button-text,
+.p-button.p-button-link {
+  color: var(--tn-yellow-700);
+  background: transparent;
+  border: none;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--fs-body);
+  letter-spacing: -0.022em;
+}
+.p-button.p-button-text:hover { background: var(--tn-accent-soft); }
+
+[data-theme='dark'] .p-button.p-button-text,
+[data-theme='dark'] .p-button.p-button-link {
+  color: var(--tn-yellow-300);
+}
+
+/* Smaller variants keep proportional pill feel */
+.p-button.p-button-sm { padding: 8px 16px; font-size: var(--fs-body-s); }
+.p-button.p-button-lg { padding: 14px 28px; font-size: 18px; font-weight: 300; }  /* Apple's signature large CTA at weight 300 */
+
+/* Inputs: pill if class .tn-pill, otherwise PrimeNG default */
+.p-inputtext {
+  border-radius: var(--tn-radius-utility);
+  border: 1px solid var(--tn-hairline);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  letter-spacing: -0.022em;
+}
+.p-inputtext:focus,
+.p-inputtext:enabled:focus {
+  border-color: var(--tn-yellow-500);
+  box-shadow: 0 0 0 2px var(--tn-accent-soft);
+}
+
+/* Cards: hairline border, no shadow (Apple philosophy) */
+.surface-card {
+  background: var(--surface-card) !important;
+  border: 1px solid var(--tn-hairline) !important;
+  box-shadow: none !important;
+  border-radius: var(--tn-radius-card) !important;
+}
+
+.shadow-1, .shadow-2, .shadow-3, .shadow-4 {
+  box-shadow: none !important;  /* override PrimeFlex shadow utilities */
+}
+
+/* Reusable: section spacing */
+.tn-section { padding: var(--tn-section-pad-y) 1.25rem; }
+.tn-tile    { padding: var(--tn-tile-pad-y) 1.25rem; }
+
+/* Surface variants for alternating tile rhythm */
+.tn-surface-paper { background: var(--surface-parchment); color: var(--text-color); }
+.tn-surface-white { background: #FFFFFF; color: var(--tn-ink-800); }
+.tn-surface-dark  { background: var(--surface-tile-dark); color: var(--tn-paper); }
+[data-theme='dark'] .tn-surface-white { background: var(--tn-ink-800); color: var(--tn-paper); }
+
+/* Product imagery shadow — the ONE shadow in the system */
+.tn-product-shadow { filter: drop-shadow(var(--tn-shadow-product)); }

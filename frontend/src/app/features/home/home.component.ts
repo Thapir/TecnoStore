@@ -16,28 +16,25 @@ export class HomeComponent implements OnInit {
 
   heroSlides = [
     {
-      eyebrow: 'Colección 2026',
-      title: 'Nuevos Lanzamientos',
-      subtitle: 'Descubre las últimas tendencias en electrónica y moda',
-      cta: 'Comprar Ahora',
-      bgClass: 'hero-gradient-indigo',
-      icon: 'pi pi-sparkles'
+      eyebrow: 'COLECCIÓN 2026',
+      title: 'Nuevos lanzamientos.',
+      subtitle: 'Las últimas tendencias en electrónica y moda.',
+      cta: 'Comprar',
+      surface: 'tile-dark'
     },
     {
-      eyebrow: 'Hasta 50% OFF',
-      title: 'Ofertas de Temporada',
-      subtitle: 'Hasta 50% de descuento en productos seleccionados',
-      cta: 'Ver Ofertas',
-      bgClass: 'hero-gradient-sunset',
-      icon: 'pi pi-bolt'
+      eyebrow: 'HASTA 50% OFF',
+      title: 'Ofertas de temporada.',
+      subtitle: 'Hasta 50% de descuento en productos seleccionados.',
+      cta: 'Ver ofertas',
+      surface: 'tile-paper'
     },
     {
-      eyebrow: 'Envíos a todo el país',
-      title: 'Envío Gratis',
-      subtitle: 'En todas las compras mayores a $100',
-      cta: 'Empezar a Comprar',
-      bgClass: 'hero-gradient-emerald',
-      icon: 'pi pi-send'
+      eyebrow: 'ENVÍOS A TODO EL PAÍS',
+      title: 'Envío gratis.',
+      subtitle: 'En todas las compras mayores a $100.',
+      cta: 'Empezar',
+      surface: 'tile-white'
     }
   ];
 

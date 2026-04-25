@@ -3,58 +3,68 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-footer',
   template: `
-    <footer class="footer-container py-6 px-4">
-      <div class="max-w-screen-xl mx-auto grid">
-        <!-- Brand -->
-        <div class="col-12 md:col-4 mb-4 md:mb-0">
-          <div class="footer-brand mb-3">
-            <img src="assets/logo/tecnoshop-logo-inverso.svg" alt="" class="footer-mark" width="32" height="32">
-            <span class="footer-wordmark"><span class="light">Tecno</span><span class="bold">Shop</span></span>
+    <footer class="footer-container">
+      <div class="footer-inner max-w-screen-xl mx-auto">
+        <p class="footer-legal-top">
+          TecnoShop es una plantilla demostrativa. Todos los productos y precios son ficticios.
+        </p>
+
+        <div class="footer-columns">
+          <div class="col">
+            <h4>Tienda</h4>
+            <ul>
+              <li><a routerLink="/products">Todos los Productos</a></li>
+              <li><a routerLink="/products" [queryParams]="{category:'electronics'}">Electrónica</a></li>
+              <li><a routerLink="/products" [queryParams]="{category:'clothing'}">Ropa</a></li>
+              <li><a routerLink="/products" [queryParams]="{category:'sports'}">Deportes</a></li>
+              <li><a routerLink="/products" [queryParams]="{featured:true}">Destacados</a></li>
+            </ul>
           </div>
-          <p class="footer-text line-height-3">
-            Tu destino para productos de calidad a los mejores precios.
-            Envío rápido y devoluciones sin complicaciones.
-          </p>
-          <div class="flex gap-3 mt-3">
-            <a class="footer-social cursor-pointer"><i class="pi pi-facebook text-xl"></i></a>
-            <a class="footer-social cursor-pointer"><i class="pi pi-twitter text-xl"></i></a>
-            <a class="footer-social cursor-pointer"><i class="pi pi-instagram text-xl"></i></a>
+
+          <div class="col">
+            <h4>Cuenta</h4>
+            <ul>
+              <li><a routerLink="/auth/login">Iniciar sesión</a></li>
+              <li><a routerLink="/auth/register">Crear cuenta</a></li>
+              <li><a>Mis pedidos</a></li>
+              <li><a>Favoritos</a></li>
+            </ul>
+          </div>
+
+          <div class="col">
+            <h4>Soporte</h4>
+            <ul>
+              <li><a>Centro de Ayuda</a></li>
+              <li><a>Info de Envíos</a></li>
+              <li><a>Devoluciones</a></li>
+              <li><a>Contacto</a></li>
+            </ul>
+          </div>
+
+          <div class="col">
+            <h4>TecnoShop</h4>
+            <ul>
+              <li><a>Sobre nosotros</a></li>
+              <li><a>Sostenibilidad</a></li>
+              <li><a>Trabajá con nosotros</a></li>
+              <li><a>Sala de prensa</a></li>
+            </ul>
           </div>
         </div>
 
-        <!-- Links -->
-        <div class="col-6 md:col-2">
-          <h4 class="footer-heading mb-3">Tienda</h4>
-          <ul class="list-none p-0 m-0">
-            <li class="mb-2"><a routerLink="/products" class="footer-link no-underline">Todos los Productos</a></li>
-            <li class="mb-2"><a routerLink="/products" [queryParams]="{category:'electronics'}" class="footer-link no-underline">Electrónica</a></li>
-            <li class="mb-2"><a routerLink="/products" [queryParams]="{category:'clothing'}" class="footer-link no-underline">Ropa</a></li>
-            <li class="mb-2"><a routerLink="/products" [queryParams]="{category:'sports'}" class="footer-link no-underline">Deportes</a></li>
+        <div class="footer-bottom">
+          <div class="footer-bottom-brand">
+            <img src="assets/logo/tecnoshop-logo.svg" alt="" class="bottom-mark light-only" width="20" height="20">
+            <img src="assets/logo/tecnoshop-logo-inverso.svg" alt="" class="bottom-mark dark-only" width="20" height="20">
+            <span>Copyright &copy; 2026 TecnoShop. Todos los derechos reservados.</span>
+          </div>
+          <ul class="footer-legal">
+            <li><a>Política de Privacidad</a></li>
+            <li><a>Términos de uso</a></li>
+            <li><a>Cookies</a></li>
+            <li><a>Mapa del sitio</a></li>
           </ul>
         </div>
-
-        <div class="col-6 md:col-2">
-          <h4 class="footer-heading mb-3">Soporte</h4>
-          <ul class="list-none p-0 m-0">
-            <li class="mb-2"><a class="footer-link no-underline cursor-pointer">Centro de Ayuda</a></li>
-            <li class="mb-2"><a class="footer-link no-underline cursor-pointer">Info de Envíos</a></li>
-            <li class="mb-2"><a class="footer-link no-underline cursor-pointer">Devoluciones</a></li>
-            <li class="mb-2"><a class="footer-link no-underline cursor-pointer">Contacto</a></li>
-          </ul>
-        </div>
-
-        <div class="col-12 md:col-4">
-          <h4 class="footer-heading mb-3">Newsletter</h4>
-          <p class="footer-text mb-3">Suscríbete para recibir ofertas exclusivas y novedades.</p>
-          <div class="flex">
-            <input type="email" pInputText placeholder="Tu email" class="flex-grow-1 border-round-left">
-            <button pButton label="Suscribirse" class="border-round-right"></button>
-          </div>
-        </div>
-      </div>
-
-      <div class="footer-bottom max-w-screen-xl mx-auto mt-5 pt-4 text-center">
-        <p>&copy; 2026 TecnoShop · Todos los derechos reservados · Proyecto plantilla</p>
       </div>
     </footer>
   `,
@@ -62,57 +72,113 @@ import { Component } from '@angular/core';
     .footer-container {
       background-color: var(--tn-footer-bg);
       color: var(--tn-footer-text);
-      border-top: 1px solid rgba(244, 208, 63, 0.20);
       font-family: var(--font-body);
+      padding: clamp(32px, 5vw, 56px) 1.25rem 24px;
     }
-    .footer-brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-    .footer-mark {
-      width: 32px;
-      height: 32px;
-    }
-    .footer-wordmark {
-      font-family: var(--font-display);
-      font-size: 1.35rem;
-      letter-spacing: -0.03em;
-      line-height: 1;
-      color: #fff;
-    }
-    .footer-wordmark .light { font-weight: 300; }
-    .footer-wordmark .bold  { font-weight: 500; }
 
-    .footer-heading {
-      font-family: var(--font-display);
-      color: #fff;
-      font-weight: 500;
-      font-size: 0.95rem;
-      letter-spacing: -0.005em;
-    }
-    .footer-text { color: var(--tn-footer-text-muted); }
-    .footer-link {
+    .footer-inner { max-width: 1280px; margin: 0 auto; }
+
+    .footer-legal-top {
+      font-size: var(--fs-fine);
+      line-height: 1.43;
+      letter-spacing: -0.012em;
       color: var(--tn-footer-text-muted);
+      margin: 0 0 1.75rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--tn-footer-border);
+    }
+
+    .footer-columns {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: clamp(1.25rem, 3vw, 3rem);
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--tn-footer-border);
+    }
+
+    .footer-columns h4 {
+      font-family: var(--font-body);
+      font-size: var(--fs-fine);
+      font-weight: 600;
+      letter-spacing: -0.012em;
+      color: var(--tn-footer-text);
+      line-height: 2.41;
+      margin: 0 0 0.25rem;
+    }
+
+    .footer-columns ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-columns li {
+      font-size: var(--fs-fine);
+      line-height: 2.41;
+      letter-spacing: -0.012em;
+    }
+
+    .footer-columns a {
+      color: var(--tn-footer-text);
+      text-decoration: none;
+      cursor: pointer;
       transition: color 0.2s ease;
     }
-    .footer-link:hover { color: var(--tn-yellow-300); }
-    .footer-social {
-      color: var(--tn-footer-text-muted);
-      transition: color 0.2s ease, transform 0.2s ease;
-      display: inline-flex;
-    }
-    .footer-social:hover {
-      color: var(--tn-yellow-300);
-      transform: translateY(-2px);
-    }
+
+    .footer-columns a:hover { color: var(--tn-yellow-700); }
+
+    [data-theme='dark'] .footer-columns a:hover { color: var(--tn-yellow-300); }
+
     .footer-bottom {
-      border-top: 1px solid var(--tn-footer-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      padding-top: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-bottom-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: var(--fs-fine);
+      letter-spacing: -0.012em;
       color: var(--tn-footer-text-muted);
-      font-family: var(--font-mono);
-      font-size: var(--fs-mono-s);
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
+    }
+
+    .bottom-mark { width: 20px; height: 20px; }
+    .bottom-mark.dark-only { display: none; }
+    [data-theme='dark'] .bottom-mark.light-only { display: none; }
+    [data-theme='dark'] .bottom-mark.dark-only { display: inline-block; }
+
+    .footer-legal {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem 1.5rem;
+    }
+
+    .footer-legal a {
+      font-size: var(--fs-fine);
+      letter-spacing: -0.012em;
+      color: var(--tn-footer-text-muted);
+      cursor: pointer;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .footer-legal a:hover { color: var(--tn-yellow-700); }
+    [data-theme='dark'] .footer-legal a:hover { color: var(--tn-yellow-300); }
+
+    @media (max-width: 833px) {
+      .footer-columns { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 480px) {
+      .footer-columns { grid-template-columns: 1fr; gap: 1rem; }
     }
   `]
 })
