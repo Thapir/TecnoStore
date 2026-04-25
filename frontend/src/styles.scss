@@ -229,10 +229,10 @@ router-outlet + * {
   .p-divider { border-color: var(--surface-border); }
 }
 
-/* Primary button always uses TecnoShop yellow */
+/* Primary button always uses TecnoShop yellow (solid) */
 .p-button:not(.p-button-text):not(.p-button-outlined):not(.p-button-link) {
-  background: var(--tn-gradient-yellow);
-  border-color: var(--tn-yellow-500);
+  background: #F4D03F;
+  border-color: #F4D03F;
   color: var(--tn-ink-800);
   font-family: var(--font-display);
   font-weight: 500;
@@ -240,7 +240,7 @@ router-outlet + * {
 }
 
 .p-button:not(.p-button-text):not(.p-button-outlined):not(.p-button-link):hover {
-  background: linear-gradient(135deg, #F8E37A 0%, #F4D03F 50%, #C9A11A 100%);
-  border-color: var(--tn-yellow-600);
+  background: var(--tn-yellow-500);
+  border-color: var(--tn-yellow-500);
   box-shadow: var(--tn-shadow-yellow);
 }
