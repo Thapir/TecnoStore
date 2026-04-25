@@ -34,6 +34,14 @@
 
       <!-- Actions -->
       <div class="header-actions">
+        <!-- Theme toggle -->
+        <button type="button" class="icon-btn theme-toggle" (click)="toggleTheme()"
+                [pTooltip]="theme === 'dark' ? 'Modo claro' : 'Modo oscuro'"
+                tooltipPosition="bottom"
+                [attr.aria-label]="theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'">
+          <i class="pi" [ngClass]="theme === 'dark' ? 'pi-sun' : 'pi-moon'"></i>
+        </button>
+
         <!-- User -->
         <ng-container *ngIf="currentUser; else loginBtn">
           <button type="button" class="icon-btn" (click)="userMenu.toggle($event)"

@@ -4,6 +4,7 @@ import { MenuItem } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { CartService } from '../../../core/services/cart.service';
 import { AuthService } from '../../../core/services/auth.service';
+import { ThemeService, Theme } from '../../../core/services/theme.service';
 import { User } from '../../../core/models';
 
 @Component({
@@ -19,6 +20,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   searchQuery = '';
   mobileMenuVisible = false;
   scrolled = false;
+  theme: Theme = 'light';
 
   private subs: Subscription[] = [];
 
@@ -30,6 +32,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     private cartService: CartService,
     private authService: AuthService,
+    private themeService: ThemeService,
     private router: Router
   ) {}
 
@@ -46,7 +49,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.authService.currentUser$.subscribe(user => {
         this.currentUser = user;
         this.buildUserMenu();
-      })
+      }),
+      this.themeService.theme$.subscribe(t => this.theme = t)
     );
   }
 
@@ -68,6 +72,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   goToCart(): void {
     this.router.navigate(['/cart']);
+  }
+
+  toggleTheme(): void {
+    this.themeService.toggle();
   }
 
   logout(): void {

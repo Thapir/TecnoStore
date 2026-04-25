@@ -1,4 +1,94 @@
-/* Global Styles - eCommerce Template */
+/* Global Styles - TecnoStore (black + gold palette, light/dark themes) */
+
+:root {
+  /* Brand palette */
+  --tn-gold-50:  #FBF6E2;
+  --tn-gold-100: #F4E6A8;
+  --tn-gold-200: #ECD16E;
+  --tn-gold-300: #E0BC44;
+  --tn-gold-400: #D4AF37;
+  --tn-gold-500: #C9A227;
+  --tn-gold-600: #B0881C;
+  --tn-gold-700: #8C6B14;
+
+  --tn-black-900: #050505;
+  --tn-black-800: #0E0E10;
+  --tn-black-700: #16161A;
+  --tn-black-600: #1F1F24;
+  --tn-black-500: #2A2A30;
+  --tn-black-400: #3A3A42;
+
+  --tn-gradient-gold: linear-gradient(135deg, #E0BC44 0%, #D4AF37 45%, #B0881C 100%);
+  --tn-gradient-dark: linear-gradient(135deg, #0E0E10 0%, #1F1F24 60%, #2A2A30 100%);
+
+  /* Light theme (default) */
+  --primary-color: var(--tn-gold-500);
+  --primary-color-text: #0E0E10;
+  --tn-accent: var(--tn-gold-400);
+  --tn-accent-strong: var(--tn-gold-600);
+  --tn-accent-soft: rgba(212, 175, 55, 0.12);
+
+  --surface-ground: #FAFAF7;
+  --surface-section: #FFFFFF;
+  --surface-card: #FFFFFF;
+  --surface-overlay: #FFFFFF;
+  --surface-border: rgba(15, 15, 18, 0.08);
+  --surface-hover: rgba(15, 15, 18, 0.04);
+
+  --text-color: #0E0E10;
+  --text-color-secondary: #4B4B55;
+  --text-color-muted: #7A7A85;
+
+  --tn-header-bg: rgba(255, 255, 255, 0.85);
+  --tn-header-bg-scrolled: rgba(255, 255, 255, 0.94);
+  --tn-header-border: rgba(15, 15, 18, 0.08);
+
+  --tn-search-bg: #F3F1E8;
+  --tn-search-bg-focus: #FFFFFF;
+
+  --tn-footer-bg: var(--tn-black-800);
+  --tn-footer-text: rgba(255, 255, 255, 0.72);
+  --tn-footer-text-muted: rgba(255, 255, 255, 0.55);
+  --tn-footer-border: rgba(255, 255, 255, 0.08);
+
+  --tn-shadow-card: 0 12px 30px -18px rgba(15, 15, 18, 0.25);
+  --tn-shadow-gold: 0 14px 30px -14px rgba(212, 175, 55, 0.55);
+
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --primary-color: var(--tn-gold-400);
+  --primary-color-text: #0E0E10;
+  --tn-accent-soft: rgba(224, 188, 68, 0.16);
+
+  --surface-ground: var(--tn-black-900);
+  --surface-section: var(--tn-black-800);
+  --surface-card: var(--tn-black-700);
+  --surface-overlay: var(--tn-black-600);
+  --surface-border: rgba(255, 255, 255, 0.08);
+  --surface-hover: rgba(255, 255, 255, 0.04);
+
+  --text-color: #F5F5F1;
+  --text-color-secondary: rgba(245, 245, 241, 0.72);
+  --text-color-muted: rgba(245, 245, 241, 0.5);
+
+  --tn-header-bg: rgba(14, 14, 16, 0.78);
+  --tn-header-bg-scrolled: rgba(14, 14, 16, 0.92);
+  --tn-header-border: rgba(255, 255, 255, 0.08);
+
+  --tn-search-bg: var(--tn-black-600);
+  --tn-search-bg-focus: var(--tn-black-500);
+
+  --tn-footer-bg: #050505;
+  --tn-footer-text: rgba(245, 245, 241, 0.72);
+  --tn-footer-text-muted: rgba(245, 245, 241, 0.45);
+  --tn-footer-border: rgba(255, 255, 255, 0.06);
+
+  --tn-shadow-card: 0 18px 38px -22px rgba(0, 0, 0, 0.7);
+
+  color-scheme: dark;
+}
 
 * {
   box-sizing: border-box;
@@ -16,6 +106,7 @@ body {
   color: var(--text-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.35s ease, color 0.35s ease;
 }
 
 a {
@@ -30,18 +121,11 @@ a {
 }
 
 /* Utility: hide scrollbar */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
 /* Override PrimeNG toast z-index */
-.p-toast {
-  z-index: 10000 !important;
-}
+.p-toast { z-index: 10000 !important; }
 
 /* Smooth page transitions */
 router-outlet + * {
@@ -51,4 +135,60 @@ router-outlet + * {
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------------- PrimeNG dark-mode overrides ----------------
+   PrimeNG ships with the lara-light-blue theme baked into the bundle.
+   We override the most visible surfaces so dark mode feels coherent.
+------------------------------------------------------------------ */
+[data-theme='dark'] {
+  .p-component,
+  .p-inputtext,
+  .p-dropdown,
+  .p-multiselect,
+  .p-card,
+  .p-dialog,
+  .p-sidebar,
+  .p-menu,
+  .p-overlaypanel,
+  .p-toast {
+    background-color: var(--surface-card);
+    color: var(--text-color);
+    border-color: var(--surface-border);
+  }
+
+  .p-inputtext,
+  .p-dropdown,
+  .p-multiselect {
+    background-color: var(--surface-overlay);
+    color: var(--text-color);
+    border-color: var(--surface-border);
+  }
+
+  .p-inputtext::placeholder { color: var(--text-color-muted); }
+
+  .p-button.p-button-text,
+  .p-button.p-button-outlined {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+
+  .p-card .p-card-title,
+  .p-card .p-card-subtitle { color: var(--text-color); }
+
+  .p-divider { border-color: var(--surface-border); }
+}
+
+/* Primary button always uses gold */
+.p-button:not(.p-button-text):not(.p-button-outlined):not(.p-button-link) {
+  background: var(--tn-gradient-gold);
+  border-color: var(--tn-gold-500);
+  color: var(--primary-color-text);
+  font-weight: 600;
+}
+
+.p-button:not(.p-button-text):not(.p-button-outlined):not(.p-button-link):hover {
+  background: linear-gradient(135deg, #E5C158 0%, #D4AF37 50%, #B0881C 100%);
+  border-color: var(--tn-gold-600);
+  box-shadow: var(--tn-shadow-gold);
 }
