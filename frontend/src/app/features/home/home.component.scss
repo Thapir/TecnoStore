@@ -135,7 +135,7 @@
   &:hover {
     transform: translateY(-2px);
     background: rgba(255, 255, 255, 0.95);
-    color: #111827;
+    color: var(--tn-ink-800);
     box-shadow: 0 18px 35px -15px rgba(0, 0, 0, 0.4);
 
     i {
@@ -206,7 +206,7 @@
 
       &:hover {
         background: rgba(255, 255, 255, 0.95);
-        color: #111827;
+        color: var(--tn-ink-800);
         transform: scale(1.05);
       }
     }
