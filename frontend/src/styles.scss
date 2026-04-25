@@ -1,124 +1,175 @@
-/* Global Styles - TecnoStore (black + gold palette, light/dark themes) */
+/* Global Styles - TecnoShop (yellow + ink palette, light/dark themes)
+   Type system: Space Grotesk (display) + Inter (body) + JetBrains Mono (detail) */
 
 :root {
-  /* Brand palette */
-  --tn-gold-50:  #FBF6E2;
-  --tn-gold-100: #F4E6A8;
-  --tn-gold-200: #ECD16E;
-  --tn-gold-300: #E0BC44;
-  --tn-gold-400: #D4AF37;
-  --tn-gold-500: #C9A227;
-  --tn-gold-600: #B0881C;
-  --tn-gold-700: #8C6B14;
+  /* ---------------- Brand palette ---------------- */
+  --tn-yellow-50:  #FEFAE6;
+  --tn-yellow-100: #FCEFAA;
+  --tn-yellow-200: #F8E37A;
+  --tn-yellow-300: #F6DA56;
+  --tn-yellow-400: #F4D03F;  /* base · brand kit "Yellow" */
+  --tn-yellow-500: #E5BB1F;
+  --tn-yellow-600: #C9A11A;
+  --tn-yellow-700: #876200;  /* brand kit accent text on light */
 
-  --tn-black-900: #050505;
-  --tn-black-800: #0E0E10;
-  --tn-black-700: #16161A;
-  --tn-black-600: #1F1F24;
-  --tn-black-500: #2A2A30;
-  --tn-black-400: #3A3A42;
+  --tn-ink-900: #050505;
+  --tn-ink-800: #0A0A0A;     /* base · brand kit "Ink" */
+  --tn-ink-700: #14141A;
+  --tn-ink-600: #1F1F24;
+  --tn-ink-500: #2A2A30;
+  --tn-ink-400: #3A3A42;
 
-  --tn-gradient-gold: linear-gradient(135deg, #E0BC44 0%, #D4AF37 45%, #B0881C 100%);
-  --tn-gradient-dark: linear-gradient(135deg, #0E0E10 0%, #1F1F24 60%, #2A2A30 100%);
+  --tn-paper:    #F5F2EA;    /* brand kit "Paper" */
+  --tn-paper-2:  #EDE8DC;
 
-  /* Light theme (default) */
-  --primary-color: var(--tn-gold-500);
-  --primary-color-text: #0E0E10;
-  --tn-accent: var(--tn-gold-400);
-  --tn-accent-strong: var(--tn-gold-600);
-  --tn-accent-soft: rgba(212, 175, 55, 0.12);
+  --tn-gradient-yellow: linear-gradient(135deg, #F6DA56 0%, #F4D03F 50%, #C9A11A 100%);
+  --tn-gradient-ink: linear-gradient(135deg, #0A0A0A 0%, #1F1F24 60%, #2A2A30 100%);
 
-  --surface-ground: #FAFAF7;
+  /* ---------------- Type system ---------------- */
+  --font-display: 'Space Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body:    'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+
+  --fs-display-xl: clamp(48px, 8vw, 88px);
+  --fs-display-l:  clamp(36px, 5vw, 56px);
+  --fs-display-m:  clamp(24px, 3vw, 40px);
+  --fs-display-s:  22px;
+  --fs-body-l:     19px;
+  --fs-body-m:     16px;
+  --fs-body-s:     14px;
+  --fs-mono-m:     13px;
+  --fs-mono-s:     11px;
+
+  /* PrimeNG honors --font-family — point it at our body font */
+  --font-family: var(--font-body);
+
+  /* ---------------- Light theme (default) ---------------- */
+  --primary-color: var(--tn-yellow-400);
+  --primary-color-text: var(--tn-ink-800);
+  --tn-accent: var(--tn-yellow-400);
+  --tn-accent-strong: var(--tn-yellow-700);
+  --tn-accent-soft: rgba(244, 208, 63, 0.16);
+
+  --surface-ground: var(--tn-paper);
   --surface-section: #FFFFFF;
   --surface-card: #FFFFFF;
   --surface-overlay: #FFFFFF;
-  --surface-border: rgba(15, 15, 18, 0.08);
-  --surface-hover: rgba(15, 15, 18, 0.04);
+  --surface-border: rgba(10, 10, 10, 0.10);
+  --surface-hover: rgba(10, 10, 10, 0.04);
 
-  --text-color: #0E0E10;
-  --text-color-secondary: #4B4B55;
-  --text-color-muted: #7A7A85;
+  --text-color: var(--tn-ink-800);
+  --text-color-secondary: rgba(10, 10, 10, 0.70);
+  --text-color-muted: rgba(10, 10, 10, 0.50);
 
-  --tn-header-bg: rgba(255, 255, 255, 0.85);
-  --tn-header-bg-scrolled: rgba(255, 255, 255, 0.94);
-  --tn-header-border: rgba(15, 15, 18, 0.08);
+  --tn-header-bg: rgba(245, 242, 234, 0.82);
+  --tn-header-bg-scrolled: rgba(245, 242, 234, 0.94);
+  --tn-header-border: rgba(10, 10, 10, 0.10);
 
-  --tn-search-bg: #F3F1E8;
+  --tn-search-bg: var(--tn-paper-2);
   --tn-search-bg-focus: #FFFFFF;
 
-  --tn-footer-bg: var(--tn-black-800);
-  --tn-footer-text: rgba(255, 255, 255, 0.72);
-  --tn-footer-text-muted: rgba(255, 255, 255, 0.55);
-  --tn-footer-border: rgba(255, 255, 255, 0.08);
+  --tn-footer-bg: var(--tn-ink-800);
+  --tn-footer-text: rgba(245, 242, 234, 0.78);
+  --tn-footer-text-muted: rgba(245, 242, 234, 0.55);
+  --tn-footer-border: rgba(245, 242, 234, 0.10);
 
-  --tn-shadow-card: 0 12px 30px -18px rgba(15, 15, 18, 0.25);
-  --tn-shadow-gold: 0 14px 30px -14px rgba(212, 175, 55, 0.55);
+  --tn-shadow-card: 0 14px 32px -20px rgba(10, 10, 10, 0.25);
+  --tn-shadow-yellow: 0 14px 30px -14px rgba(244, 208, 63, 0.6);
 
   color-scheme: light;
 }
 
 [data-theme='dark'] {
-  --primary-color: var(--tn-gold-400);
-  --primary-color-text: #0E0E10;
-  --tn-accent-soft: rgba(224, 188, 68, 0.16);
+  --primary-color: var(--tn-yellow-400);
+  --primary-color-text: var(--tn-ink-800);
+  --tn-accent-soft: rgba(244, 208, 63, 0.18);
 
-  --surface-ground: var(--tn-black-900);
-  --surface-section: var(--tn-black-800);
-  --surface-card: var(--tn-black-700);
-  --surface-overlay: var(--tn-black-600);
-  --surface-border: rgba(255, 255, 255, 0.08);
-  --surface-hover: rgba(255, 255, 255, 0.04);
+  --surface-ground: var(--tn-ink-900);
+  --surface-section: var(--tn-ink-800);
+  --surface-card: var(--tn-ink-700);
+  --surface-overlay: var(--tn-ink-600);
+  --surface-border: rgba(245, 242, 234, 0.10);
+  --surface-hover: rgba(245, 242, 234, 0.05);
 
-  --text-color: #F5F5F1;
-  --text-color-secondary: rgba(245, 245, 241, 0.72);
-  --text-color-muted: rgba(245, 245, 241, 0.5);
+  --text-color: var(--tn-paper);
+  --text-color-secondary: rgba(245, 242, 234, 0.75);
+  --text-color-muted: rgba(245, 242, 234, 0.50);
 
-  --tn-header-bg: rgba(14, 14, 16, 0.78);
-  --tn-header-bg-scrolled: rgba(14, 14, 16, 0.92);
-  --tn-header-border: rgba(255, 255, 255, 0.08);
+  --tn-header-bg: rgba(10, 10, 10, 0.78);
+  --tn-header-bg-scrolled: rgba(10, 10, 10, 0.94);
+  --tn-header-border: rgba(245, 242, 234, 0.10);
 
-  --tn-search-bg: var(--tn-black-600);
-  --tn-search-bg-focus: var(--tn-black-500);
+  --tn-search-bg: var(--tn-ink-600);
+  --tn-search-bg-focus: var(--tn-ink-500);
 
   --tn-footer-bg: #050505;
-  --tn-footer-text: rgba(245, 245, 241, 0.72);
-  --tn-footer-text-muted: rgba(245, 245, 241, 0.45);
-  --tn-footer-border: rgba(255, 255, 255, 0.06);
+  --tn-footer-text: rgba(245, 242, 234, 0.75);
+  --tn-footer-text-muted: rgba(245, 242, 234, 0.45);
+  --tn-footer-border: rgba(245, 242, 234, 0.06);
 
-  --tn-shadow-card: 0 18px 38px -22px rgba(0, 0, 0, 0.7);
+  --tn-shadow-card: 0 18px 40px -22px rgba(0, 0, 0, 0.7);
 
   color-scheme: dark;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
-html {
-  font-size: 14px;
-}
+html { font-size: 14px; }
 
 body {
   margin: 0;
   padding: 0;
-  font-family: var(--font-family);
+  font-family: var(--font-body);
+  font-size: var(--fs-body-m);
+  line-height: 1.6;
   background-color: var(--surface-ground);
   color: var(--text-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.35s ease, color 0.35s ease;
+  font-feature-settings: 'cv11', 'ss01';
+}
+
+h1, h2, h3, h4, h5, h6,
+.tn-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.025em;
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+code, kbd, pre, samp,
+.tn-mono {
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
 }
 
 a {
-  color: var(--primary-color);
+  color: var(--tn-accent-strong);
   text-decoration: none;
+  transition: color 0.2s ease;
 }
+a:hover { color: var(--tn-yellow-600); }
+
+[data-theme='dark'] a { color: var(--tn-yellow-300); }
+[data-theme='dark'] a:hover { color: var(--tn-yellow-400); }
 
 .max-w-screen-xl {
   max-width: 1280px;
   margin-left: auto;
   margin-right: auto;
 }
+
+/* Typography utility classes (mirror brand kit scale) */
+.tn-display-xl { font-family: var(--font-display); font-weight: 300; font-size: var(--fs-display-xl); letter-spacing: -0.045em; line-height: 0.95; }
+.tn-display-l  { font-family: var(--font-display); font-weight: 500; font-size: var(--fs-display-l);  letter-spacing: -0.025em; line-height: 1.0;  }
+.tn-display-m  { font-family: var(--font-display); font-weight: 500; font-size: var(--fs-display-m);  letter-spacing: -0.015em; line-height: 1.1;  }
+.tn-display-s  { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-display-s);  letter-spacing: -0.005em; line-height: 1.25; }
+.tn-body-l     { font-family: var(--font-body);    font-weight: 400; font-size: var(--fs-body-l);     line-height: 1.6; }
+.tn-body-m     { font-family: var(--font-body);    font-weight: 400; font-size: var(--fs-body-m);     line-height: 1.65; }
+.tn-body-s     { font-family: var(--font-body);    font-weight: 400; font-size: var(--fs-body-s);     line-height: 1.55; }
+.tn-mono-m     { font-family: var(--font-mono);    font-weight: 400; font-size: var(--fs-mono-m);     letter-spacing: 0.04em; }
+.tn-mono-s     { font-family: var(--font-mono);    font-weight: 400; font-size: var(--fs-mono-s);     letter-spacing: 0.14em; text-transform: uppercase; }
 
 /* Utility: hide scrollbar */
 .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -139,8 +190,7 @@ router-outlet + * {
 
 /* ---------------- PrimeNG dark-mode overrides ----------------
    PrimeNG ships with the lara-light-blue theme baked into the bundle.
-   We override the most visible surfaces so dark mode feels coherent.
------------------------------------------------------------------- */
+   We override the most visible surfaces so dark mode feels coherent. */
 [data-theme='dark'] {
   .p-component,
   .p-inputtext,
@@ -179,16 +229,18 @@ router-outlet + * {
   .p-divider { border-color: var(--surface-border); }
 }
 
-/* Primary button always uses gold */
+/* Primary button always uses TecnoShop yellow */
 .p-button:not(.p-button-text):not(.p-button-outlined):not(.p-button-link) {
-  background: var(--tn-gradient-gold);
-  border-color: var(--tn-gold-500);
-  color: var(--primary-color-text);
-  font-weight: 600;
+  background: var(--tn-gradient-yellow);
+  border-color: var(--tn-yellow-500);
+  color: var(--tn-ink-800);
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.005em;
 }
 
 .p-button:not(.p-button-text):not(.p-button-outlined):not(.p-button-link):hover {
-  background: linear-gradient(135deg, #E5C158 0%, #D4AF37 50%, #B0881C 100%);
-  border-color: var(--tn-gold-600);
-  box-shadow: var(--tn-shadow-gold);
+  background: linear-gradient(135deg, #F8E37A 0%, #F4D03F 50%, #C9A11A 100%);
+  border-color: var(--tn-yellow-600);
+  box-shadow: var(--tn-shadow-yellow);
 }

@@ -11,11 +11,10 @@
   <div class="main-header">
     <div class="main-header-inner max-w-screen-xl mx-auto">
       <!-- Logo -->
-      <a routerLink="/" class="brand no-underline">
-        <span class="brand-mark">
-          <i class="pi pi-shopping-bag"></i>
-        </span>
-        <span class="brand-name">TecnoStore</span>
+      <a routerLink="/" class="brand no-underline" aria-label="TecnoShop · Inicio">
+        <img src="assets/logo/tecnoshop-logo.svg" alt="" class="brand-mark light-only" width="40" height="40">
+        <img src="assets/logo/tecnoshop-logo-inverso.svg" alt="" class="brand-mark dark-only" width="40" height="40">
+        <span class="brand-name"><span class="brand-name-light">Tecno</span><span class="brand-name-bold">Shop</span></span>
       </a>
 
       <!-- Search bar (desktop) -->
@@ -91,8 +90,9 @@
   <p-sidebar [(visible)]="mobileMenuVisible" position="left" styleClass="mobile-sidebar">
     <ng-template pTemplate="header">
       <span class="brand">
-        <span class="brand-mark"><i class="pi pi-shopping-bag"></i></span>
-        <span class="brand-name">TecnoStore</span>
+        <img src="assets/logo/tecnoshop-logo.svg" alt="" class="brand-mark light-only" width="36" height="36">
+        <img src="assets/logo/tecnoshop-logo-inverso.svg" alt="" class="brand-mark dark-only" width="36" height="36">
+        <span class="brand-name"><span class="brand-name-light">Tecno</span><span class="brand-name-bold">Shop</span></span>
       </span>
     </ng-template>
 

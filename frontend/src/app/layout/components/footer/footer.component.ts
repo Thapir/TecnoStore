@@ -7,9 +7,10 @@ import { Component } from '@angular/core';
       <div class="max-w-screen-xl mx-auto grid">
         <!-- Brand -->
         <div class="col-12 md:col-4 mb-4 md:mb-0">
-          <h3 class="footer-brand mb-3">
-            <i class="pi pi-shopping-bag mr-2"></i>TecnoStore
-          </h3>
+          <div class="footer-brand mb-3">
+            <img src="assets/logo/tecnoshop-logo-inverso.svg" alt="" class="footer-mark" width="32" height="32">
+            <span class="footer-wordmark"><span class="light">Tecno</span><span class="bold">Shop</span></span>
+          </div>
           <p class="footer-text line-height-3">
             Tu destino para productos de calidad a los mejores precios.
             Envío rápido y devoluciones sin complicaciones.
@@ -52,8 +53,8 @@ import { Component } from '@angular/core';
         </div>
       </div>
 
-      <div class="footer-bottom max-w-screen-xl mx-auto mt-5 pt-4 text-center text-sm">
-        <p>&copy; 2026 TecnoStore. Todos los derechos reservados. | Proyecto plantilla.</p>
+      <div class="footer-bottom max-w-screen-xl mx-auto mt-5 pt-4 text-center">
+        <p>&copy; 2026 TecnoShop · Todos los derechos reservados · Proyecto plantilla</p>
       </div>
     </footer>
   `,
@@ -61,40 +62,57 @@ import { Component } from '@angular/core';
     .footer-container {
       background-color: var(--tn-footer-bg);
       color: var(--tn-footer-text);
-      border-top: 1px solid rgba(212, 175, 55, 0.18);
+      border-top: 1px solid rgba(244, 208, 63, 0.20);
+      font-family: var(--font-body);
     }
     .footer-brand {
-      font-size: 1.25rem;
-      font-weight: 800;
-      letter-spacing: -0.01em;
-      background: var(--tn-gradient-gold);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
     }
-    .footer-heading {
+    .footer-mark {
+      width: 32px;
+      height: 32px;
+    }
+    .footer-wordmark {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      letter-spacing: -0.03em;
+      line-height: 1;
       color: #fff;
-      font-weight: 600;
+    }
+    .footer-wordmark .light { font-weight: 300; }
+    .footer-wordmark .bold  { font-weight: 500; }
+
+    .footer-heading {
+      font-family: var(--font-display);
+      color: #fff;
+      font-weight: 500;
       font-size: 0.95rem;
+      letter-spacing: -0.005em;
     }
     .footer-text { color: var(--tn-footer-text-muted); }
     .footer-link {
       color: var(--tn-footer-text-muted);
       transition: color 0.2s ease;
     }
-    .footer-link:hover { color: var(--tn-gold-300); }
+    .footer-link:hover { color: var(--tn-yellow-300); }
     .footer-social {
       color: var(--tn-footer-text-muted);
       transition: color 0.2s ease, transform 0.2s ease;
       display: inline-flex;
     }
     .footer-social:hover {
-      color: var(--tn-gold-300);
+      color: var(--tn-yellow-300);
       transform: translateY(-2px);
     }
     .footer-bottom {
       border-top: 1px solid var(--tn-footer-border);
       color: var(--tn-footer-text-muted);
+      font-family: var(--font-mono);
+      font-size: var(--fs-mono-s);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
     }
   `]
 })
