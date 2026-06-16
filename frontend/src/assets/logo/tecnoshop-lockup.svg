@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 280" width="1100" height="280">
+  <title>TecnoShop · Lockup</title>
+  <g transform="translate(0,0) scale(0.7777)">
+    <polygon points="208,84 124,196 174,196 152,276 236,164 186,164" fill="#F4D03F"/>
+    <path fill-rule="evenodd" fill="#0A0A0A" d="M180,40 L279,81 L320,180 L279,279 L180,320 L81,279 L40,180 L81,81 Z M208,84 L186,164 L236,164 L152,276 L174,196 L124,196 Z"/>
+  </g>
+  <text x="340" y="190" font-family="'Space Grotesk', 'Helvetica Neue', Arial, sans-serif" font-size="180" letter-spacing="-7" fill="#0A0A0A">
+    <tspan font-weight="300">Tecno</tspan><tspan font-weight="500">Shop</tspan>
+  </text>
+</svg>

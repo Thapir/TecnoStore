@@ -1,0 +1,128 @@
+<!-- Hero Section · Apple-style alternating tiles -->
+<section class="hero-section">
+  <p-carousel [value]="heroSlides" [numVisible]="1" [numScroll]="1"
+              [circular]="true" [autoplayInterval]="6000" [showNavigators]="true"
+              [showIndicators]="true">
+    <ng-template let-slide pTemplate="item">
+      <div class="hero-tile" [ngClass]="slide.surface">
+        <div class="hero-content">
+          <span class="hero-eyebrow tn-mono-s">{{ slide.eyebrow }}</span>
+          <h1 class="hero-headline">{{ slide.title }}</h1>
+          <p class="hero-tagline">{{ slide.subtitle }}</p>
+          <div class="hero-ctas">
+            <button type="button" class="tn-pill primary" (click)="shopAll()">{{ slide.cta }}</button>
+            <button type="button" class="tn-pill ghost" (click)="shopAll()">Conocer más</button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-carousel>
+</section>
+
+<!-- Categories · light tile -->
+<section class="tn-tile tn-surface-white">
+  <div class="max-w-screen-xl mx-auto">
+    <header class="section-head">
+      <span class="tn-mono-s eyebrow">Catálogo</span>
+      <h2 class="tn-display-l">Comprar por categoría.</h2>
+      <p class="tn-lead">Encuentra lo que estás buscando.</p>
+    </header>
+    <div class="grid">
+      <div *ngFor="let cat of categories" class="col-6 md:col-3">
+        <button type="button" class="category-card" (click)="browseCategory(cat.slug)">
+          <i [class]="cat.icon + ' category-icon'"></i>
+          <h3 class="tn-display-s">{{ cat.name }}</h3>
+          <span class="tn-caption muted">{{ cat.productCount }} productos</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Products · parchment tile -->
+<section class="tn-tile tn-surface-paper">
+  <div class="max-w-screen-xl mx-auto">
+    <header class="section-head section-head--row">
+      <div>
+        <span class="tn-mono-s eyebrow">Destacados</span>
+        <h2 class="tn-display-l">Seleccionados para ti.</h2>
+      </div>
+      <p-button label="Ver todos" [text]="true" icon="pi pi-arrow-right"
+                iconPos="right" (onClick)="shopAll()"></p-button>
+    </header>
+
+    <div *ngIf="loading" class="grid">
+      <div *ngFor="let i of [1,2,3,4]" class="col-12 md:col-3">
+        <div class="product-card">
+          <p-skeleton width="100%" height="220px"></p-skeleton>
+          <p-skeleton width="80%" height="1.5rem" styleClass="mt-3"></p-skeleton>
+          <p-skeleton width="50%" height="1rem" styleClass="mt-2"></p-skeleton>
+          <p-skeleton width="30%" height="1.5rem" styleClass="mt-2"></p-skeleton>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!loading" class="grid">
+      <div *ngFor="let product of featuredProducts" class="col-12 sm:col-6 md:col-3">
+        <article class="product-card">
+          <div class="product-image" (click)="viewProduct(product.id)">
+            <img [src]="product.image" [alt]="product.name" class="tn-product-shadow">
+            <p-tag *ngIf="product.originalPrice" value="OFERTA" severity="danger"
+                   class="product-tag"></p-tag>
+          </div>
+          <div class="product-body">
+            <h3 class="product-name tn-display-s" (click)="viewProduct(product.id)">{{ product.name }}</h3>
+            <div class="product-rating">
+              <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false" [stars]="5"></p-rating>
+              <span class="tn-caption muted">({{ product.reviewCount }})</span>
+            </div>
+            <div class="product-price">
+              <span class="price-now">{{ product.price | currency }}</span>
+              <span *ngIf="product.originalPrice" class="price-was">
+                {{ product.originalPrice | currency }}
+              </span>
+            </div>
+            <p-button label="Agregar al carrito" icon="pi pi-shopping-cart"
+                      styleClass="w-full mt-3 p-button-outlined"
+                      (onClick)="addToCart(product)"></p-button>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Promo Banner · light tile -->
+<section class="tn-tile tn-surface-white promo-tile">
+  <div class="max-w-screen-xl mx-auto">
+    <div class="grid">
+      <div class="col-12 md:col-4">
+        <div class="promo-card">
+          <i class="pi pi-truck promo-icon"></i>
+          <div>
+            <h4 class="tn-display-s">Envío gratis</h4>
+            <p class="tn-caption muted m-0">En compras mayores a $100</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 md:col-4">
+        <div class="promo-card">
+          <i class="pi pi-refresh promo-icon"></i>
+          <div>
+            <h4 class="tn-display-s">Devoluciones fáciles</h4>
+            <p class="tn-caption muted m-0">Política de 30 días</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 md:col-4">
+        <div class="promo-card">
+          <i class="pi pi-lock promo-icon"></i>
+          <div>
+            <h4 class="tn-display-s">Pago seguro</h4>
+            <p class="tn-caption muted m-0">Compra 100% segura</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
